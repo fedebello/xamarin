@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>{F353F748-DFC0-4770-B9AD-F009BA7198E3}</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>SmartFairMVP</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)BeaconInfo.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BeaconSet.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Coordinates.cs" />
+  </ItemGroup>
+</Project>
