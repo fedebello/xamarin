@@ -1,52 +1,58 @@
-﻿//		
-// This file has been generated automatically by MonoDevelop to store outlets and		
-// actions made in the Xcode designer. If it is removed, they will be lost.		
-// Manual changes to this file may not be handled correctly.		
-//		
+// WARNING
+//
+// This file has been generated automatically by Xamarin Studio from the outlets and
+// actions declared in your storyboard file.
+// Manual changes to this file will not be maintained.
+//
 using Foundation;
+using System;
+using System.CodeDom.Compiler;
 
 namespace SmartFairMVP.iOS
 {
-	[Register("ViewController")]
-	partial class ViewController
-	{
-		[Outlet]
-		UIKit.UIButton Button { get; set; }
+    [Register ("ViewController")]
+    partial class ViewController
+    {
+        [Outlet]
+        UIKit.UIButton Button { get; set; }
 
-		[Outlet]
-		UIKit.UILabel PositionLabel { get; set; }
 
-		[Outlet]
-		UIKit.UIButton RandomButton { get; set; }
+        [Outlet]
+        UIKit.UILabel PositionLabel { get; set; }
 
-		[Outlet]
-		UIKit.UIButton ResetButton { get; set; }
 
-		void ReleaseDesignerOutlets()
-		{
-			if (Button != null)
-			{
-				Button.Dispose();
-				Button = null;
-			}
+        [Outlet]
+        UIKit.UIButton RandomButton { get; set; }
 
-			if (PositionLabel != null)
-			{
-				PositionLabel.Dispose();
-				PositionLabel = null;
-			}
 
-			if (RandomButton != null)
-			{
-				RandomButton.Dispose();
-				RandomButton = null;
-			}
+        [Outlet]
+        UIKit.UIButton ResetButton { get; set; }
 
-			if (ResetButton != null)
-			{
-				ResetButton.Dispose();
-				ResetButton = null;
-			}
-		}
-	}
+        [Action ("ResetButton_TouchUpInside:")]
+        [GeneratedCode ("iOS Designer", "1.0")]
+        partial void ResetButton_TouchUpInside (UIKit.UIButton sender);
+
+        void ReleaseDesignerOutlets ()
+        {
+            if (Button != null) {
+                Button.Dispose ();
+                Button = null;
+            }
+
+            if (PositionLabel != null) {
+                PositionLabel.Dispose ();
+                PositionLabel = null;
+            }
+
+            if (RandomButton != null) {
+                RandomButton.Dispose ();
+                RandomButton = null;
+            }
+
+            if (ResetButton != null) {
+                ResetButton.Dispose ();
+                ResetButton = null;
+            }
+        }
+    }
 }

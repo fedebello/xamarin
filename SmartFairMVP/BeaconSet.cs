@@ -13,15 +13,24 @@ namespace SmartFairMVP
 		public SortedDictionary<double, string> distances = new SortedDictionary<double, string>();
 
 		public BeaconSet() {
-			loadBeaconsInfo();
+			//loadBeaconsInfo();
 		}
 
 		//Carga inicial de beacons, esto se deberia sacar de la BD (xls?) ...
 		private void loadBeaconsInfo()
 		{   //(0,0) pared con enchufe lampara -> x: hacia baño, y: hacia calle
-			beacons.Add("62438:46841", new BeaconInfo("izq arriba",	0.2, 	2));      //VQ2i (barra)
-			beacons.Add("13797:46308", new BeaconInfo("der abajo",	2, 		0));    	//v3gt (ventana)
-			beacons.Add("61356:40626", new BeaconInfo("der arriba", 2, 		2.5));		//CVdx (tele)
+			beacons.Add("62438:46841", new BeaconInfo("izq arriba",	0.2, 	6));  	    //VQ2i (barra)
+			beacons.Add("13797:46308", new BeaconInfo("der abajo",	2, 		4));    	//v3gt (ventana)
+			beacons.Add("61356:40626", new BeaconInfo("der arriba", 2, 		6.5));		//CVdx (tele)
+		}
+
+		public bool addBeacon(string key, string desc, double x, double y)
+		{
+			if (beacons == null)
+				return false;
+			
+			beacons.Add(key, new BeaconInfo(desc, x, y));
+			return true;
 		}
 
 		public BeaconInfo updateBeacon(NSUuid uuid, NSNumber major, NSNumber minor, double distance)

@@ -26,7 +26,6 @@ namespace SmartFairMVP.iOS
 		CLBeaconRegion region;
 		BeaconSet beacons;
 
-		int count = 1;
 		nfloat dx = 0;
 		nfloat dy = 0;
 		/*PointF pointA = new PointF(95.5f, 585.5f); // Beacon arriba Repisa
@@ -56,22 +55,37 @@ namespace SmartFairMVP.iOS
 			beaconManager.ExitedRegion += BeaconManager_ExitedRegion;
 
 			beacons = new BeaconSet();
+			beacons.addBeacon("62438:46841","izq arriba", 0.2, 7);	//VQ2i (barra)
+			beacons.addBeacon("13797:46308","der abajo", 2, 5);	//v3gt (ventana)
+			beacons.addBeacon("61356:40626", "der arriba", 2.5, 8);	//CVdx (tele)
 
 			/*** 
 			 * agrego lo de tincho
 			 ***/
-			UIGraphics.BeginImageContext(this.View.Frame.Size);
-			UIImage i = UIImage.FromFile("Living_Martin.jpg");
-			i = i.Scale(this.View.Frame.Size);
 
+			// imagen de fondo
+			UIGraphics.BeginImageContext(this.View.Frame.Size);
+			UIImage i = UIImage.FromFile("mapa fede.png"); //822 × 1418
+			i = i.Scale(this.View.Frame.Size);
 			this.View.BackgroundColor = UIColor.FromPatternImage(i);
 
 			//Creo una imagen en la posicion 100,100 con un tamaño de 50 x 50
-			var imageView = new UIImageView(new RectangleF(100, 100, 50, 50));
+			var imageView = new UIImageView(new RectangleF(100, 100, 40, 40));
 			imageView.Image = UIImage.FromFile("pin.png");
 			imageView.UserInteractionEnabled = true;
 			imageView.Center = new PointF(100, 100);
 			this.View.AddSubview(imageView);
+
+			//Creo imagen para beacon
+			foreach (BeaconInfo bi in beacons.beacons.Values)
+			{
+				Coordinates cb = bi.position.normalize(this.View.Frame.Size.Height, this.View.Frame.Size.Width);
+				var imageBeacon = new UIImageView(new RectangleF(Convert.ToSingle(cb.x), Convert.ToSingle(cb.y), 25, 25));
+				imageBeacon.Image = UIImage.FromFile("kontaktio-beacon.png");
+				imageBeacon.UserInteractionEnabled = false;
+				imageBeacon.Center = new PointF(Convert.ToSingle(cb.x), Convert.ToSingle(cb.y));
+				this.View.AddSubview(imageBeacon);
+			}
 
 			RandomButton.AccessibilityIdentifier = "myRandomButton";
 			RandomButton.TouchUpInside += delegate
@@ -85,12 +99,13 @@ namespace SmartFairMVP.iOS
 			ResetButton.AccessibilityIdentifier = "myResetButton";
 			ResetButton.TouchUpInside += delegate
 			{
-				count = 0;
 				var title = string.Format("Ubicar persona");
 				ResetButton.SetTitle(title, UIControlState.Normal);
 				Coordinates cell = beacons.calculatePosition();
-				imageView.Center = new PointF(Convert.ToSingle(cell.x)*320/3, Convert.ToSingle(cell.y)*548/3);
+				cell = cell.normalizeInverted(this.View.Frame.Size.Height, this.View.Frame.Size.Width);
+				imageView.Center = new PointF(Convert.ToSingle(cell.x), Convert.ToSingle(cell.y));
 				PositionLabel.Text = string.Format("Pos: <{0},{1}>", imageView.Center.X, imageView.Center.Y);
+
 
 			};
 
